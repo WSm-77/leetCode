@@ -10,16 +10,8 @@ class Solution:
         for i in range(slen):
             SLetter = s[i]
             TLetter = t[i]
-            if SLetter in letters:
-                letters[SLetter] += 1
-            else:
-                letters[SLetter] = 1
-            #end if
-            if TLetter in letters:
-                letters[TLetter] -= 1
-            else:
-                letters[TLetter] = -1
-            #end if
+            letters[SLetter] = 1 + letters.get(SLetter, 0)
+            letters[TLetter] = -1 + letters.get(TLetter, 0)
         #end for
         if max(letters.values()) == 0:
             return True
