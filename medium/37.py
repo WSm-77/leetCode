@@ -1,4 +1,4 @@
-from collections import deque
+# from collections import deque
 
 class Solution:
     def solveSudoku(self, board: list[list[str]]) -> None:
@@ -7,8 +7,8 @@ class Solution:
         # helper functions #
         ####################
 
-        def emptySquares(board: list[list[str]]) -> deque:
-            stack_of_empty = deque()
+        def emptySquares(board: list[list[str]]) -> list:
+            stack_of_empty = []
 
             for R in range(9):
                 for C in range(9):
@@ -40,23 +40,23 @@ class Solution:
             
             return [i + 1 for i in range(9) if candidates[i]]
         
-        def solveRek(board, empty_squares):
+        def solveRek(board, empty_squares, index = 0):
             nonlocal solved
             # printBoard(board)
-            if not empty_squares:
+            if index == len(empty_squares):
                 solved = True
                 return
 
-            row, coll = empty_squares.pop()
+            row, coll = empty_squares[index]
             possible_numbers = possibleNumbers(board, row, coll)
 
             for number in possible_numbers:
                 board[row][coll] = str(number)
-                solveRek(board, empty_squares)
+                solveRek(board, empty_squares, index + 1)
                 if solved:
                     return
 
-            empty_squares.append((row, coll))
+            board[row][coll] = "."
 
         #############
         #   core    #
@@ -64,9 +64,6 @@ class Solution:
 
         solved = False
         empty_squares = emptySquares(board)
-        # print(empty_squares)
-        # row, coll = empty_squares.pop()
-        # print(row, coll, possibleNumbers(board, row, coll))
         solveRek(board, empty_squares)
 
 def printBoard(board):
