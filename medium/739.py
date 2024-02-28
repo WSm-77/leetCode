@@ -1,13 +1,17 @@
+from collections import deque
+
 class Solution:
     def dailyTemperatures(self, temperatures: list[int]) -> list[int]:
         n = len(temperatures)
         days = [0 for _ in range(n)]
+        stack = deque()
 
-        for i in range(n - 1):
-            for j in range(i + 1, n):
-                if temperatures[j] > temperatures[i]:
-                    days[i] = j - i
-                    break
+        for i in range(n):
+            current_temperature = temperatures[i]
+            while stack and stack[-1][0] < current_temperature:
+                temperature, index = stack.pop()
+                days[index] = i - index
+            stack.append((current_temperature, i))
 
         return days
     
