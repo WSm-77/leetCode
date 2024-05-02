@@ -1,3 +1,5 @@
+# from collections import deque
+
 class Solution:
     def solveSudoku(self, board: list[list[str]]) -> None:
 
@@ -63,3 +65,36 @@ class Solution:
         solved = False
         empty_squares = emptySquares(board)
         solveRek(board, empty_squares)
+
+def printBoard(board):
+    for l in range(3):
+        for k in range(3):
+            row = board[3*l + k]
+            for i in range(3):
+                for j in range(3):
+                    print(row[3*i+j], end=" ")
+                print(end="\t")
+            print()
+        print()
+
+
+
+if __name__ == "__main__":
+    test = Solution()
+    board = [["5","3",".",  ".","7",".",    ".",".","."]
+            ,["6",".",".",  "1","9","5",    ".",".","."]
+            ,[".","9","8",  ".",".",".",    ".","6","."]
+
+            ,["8",".",".",  ".","6",".",    ".",".","3"]
+            ,["4",".",".",  "8",".","3",    ".",".","1"]
+            ,["7",".",".",  ".","2",".",    ".",".","6"]
+
+            ,[".","6",".",  ".",".",".",    "2","8","."]
+            ,[".",".",".",  "4","1","9",    ".",".","5"]
+            ,[".",".",".",  ".","8",".",    ".","7","9"]]
+    
+    print("sudoku:\n")
+    printBoard(board)
+    test.solveSudoku(board)
+    print("solved:\n")
+    printBoard(board)
