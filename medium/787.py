@@ -3,41 +3,24 @@ from queue import PriorityQueue
 class Solution:
     def findCheapestPrice(self, n: int, flights: list[list[int]], src: int, dst: int, k: int) -> int:
         INF = float("inf")
-        graph = [[] for _ in range(n)]
+        prices = [INF for _ in range(n)]
+        prices[src] = 0
+        tmpPrices = [INF for _ in range(n)]
 
-        for city, neighbour, cost in flights:
-            graph[city].append((neighbour, cost))
+        for _ in range(k+1):
+            for i in range(n):
+                tmpPrices[i] = prices[i]
 
+            for city, neighbour, cost in flights:
+                newPrice = prices[city] + cost
+                if newPrice < tmpPrices[neighbour]:
+                    tmpPrices[neighbour] = newPrice
+            
+            for i in range(n):
+                prices[i] = tmpPrices[i]
         
-        # prices[i][j] - cheapes travel cost from src to i-th city with j-stops
-        prices = [[INF for _ in range(k + 1)] for _ in range(n)]
-        for i in range(1, k+1):
-            prices[src][i] = 0
-        
-        # 0 - price, 1 - city, 2 - stops
-        toCheck = PriorityQueue()
+        return prices[dst] if prices[dst] != INF else -1
 
-        for neighbour, cost in graph[src]:
-            toCheck.put((cost, neighbour, 0))
-
-        while not toCheck.empty():
-            price, city, stops = toCheck.get()
-            if price >= prices[city][stops]:
-                continue
-
-            prices[city][stops] = price
-
-            if stops == k:
-                continue
-
-            for neighbour, cost in graph[city]:
-                newPrice = price + cost
-                if newPrice < prices[neighbour][stops + 1]:
-                    toCheck.put((newPrice, neighbour, stops + 1))
-        
-        minPrice = min(prices[dst])
-
-        return minPrice if minPrice != INF else -1
 
 if __name__ == "__main__":
     test = Solution()
