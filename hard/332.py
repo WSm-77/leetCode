@@ -4,7 +4,7 @@ class Solution:
             nonlocal graph, itinerary, itineraryIdx
 
             if vertex in graph:
-                for neighbour in sorted(graph[vertex], key=lambda x: x[0]):
+                for neighbour in graph[vertex]:
                     if not neighbour[1]:
                         neighbour[1] = True
                         dfs_visit(neighbour[0])
@@ -14,13 +14,13 @@ class Solution:
         #end def
         
         E = len(tickets)
-        graph: dict[str, list[list[int | bool]]] = {}
+        graph: dict[str, list[list[int | bool]]] = {vertex : [] for vertex, neighbour in tickets}
 
         for vertex, neighbour in tickets:
-            if vertex in graph:
-                graph[vertex].append([neighbour, False])
-            else:
-                graph[vertex] = [[neighbour, False]]
+            graph[vertex].append([neighbour, False])
+
+        for vertex in graph:
+            graph[vertex].sort(key=lambda x: x[0])
 
         itinerary = [None for _ in range(E + 1)]
         itineraryIdx = E
