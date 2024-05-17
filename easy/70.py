@@ -6,3 +6,10 @@ class Solution:
             a, b = b, a + b
         
         return b
+    
+if __name__ == "__main__":
+    test = Solution()
+    n = 2
+    print(test.climbStairs(n))
+    n = 3
+    print(test.climbStairs(n))
