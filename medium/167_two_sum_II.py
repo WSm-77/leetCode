@@ -4,27 +4,24 @@ from random import randint
 # first solution #
 ##################
 
-def sum2(numArray, targetSum):
-    arrayLen = len(numArray)
-    windoWStart = 0
-    currentSum = numArray[0] + numArray[1]
-    while currentSum < targetSum:
-        windoWStart += 1
-        assert(windoWStart < arrayLen)
-        currentSum = numArray[windoWStart] + numArray[windoWStart + 1]
+class Solution:
+    def twoSum(self, numbers: list[int], target: int) -> list[int]:
+        windoWStart = 0
+        currentSum = numbers[0] + numbers[1]
+        while currentSum < target:
+            windoWStart += 1
+            currentSum = numbers[windoWStart] + numbers[windoWStart + 1]
 
-    windowEnd = 1
-    while targetSum != currentSum:
-        if currentSum < targetSum:
-            windowEnd += 1
-        else:
-            windoWStart -= 1
-            assert(windoWStart < arrayLen)
-            assert(windowEnd >= 0)
-        currentSum = numArray[windoWStart] + numArray[windowEnd]
+        windowEnd = 1
+        while target != currentSum:
+            if currentSum < target:
+                windowEnd += 1
+            else:
+                windoWStart -= 1
+        currentSum = numbers[windoWStart] + numbers[windowEnd]
 
 
-    return windoWStart + 1, windowEnd + 1
+        return [windoWStart + 1, windowEnd + 1]
 
 ###################
 # second solution #
@@ -46,8 +43,9 @@ class Solution:
                 firstIndex += 1
 
 if __name__ == "__main__":
+    test = Solution()
     numArray = [randint(0, 15) for _ in range(10)]
     numArray = sorted(numArray)
     print(numArray)
     targetSum = int(input("enter target sum: "))
-    print(sum2(numArray, targetSum))
+    print(test.twoSum(numArray, targetSum))
