@@ -29,15 +29,21 @@
 # mediumTreesNames=("lowest_common_ancestor")
 # mediumBacktracking=("78" "39" "46" "90" "40" "79" "17")
 # mediumBacktrackingNames=("subsets" "combination_sum" "permutations" "subsets_II" "combination_sum_II" "word_search" "letter_combinations_of_phone_number")
-# mediumGraphs=("200" "695" "133" "994" "417" "130" "207" "210" "684" "127")
+# mediumGraphs=("200" "695" "133" "994" "417" "130" "207" "210" "684")
 # mediumGraphsNames=("number_of_islands" "max_area_of_island" "clone_graph" "rotting_oranges" "pacific_atlantic_water_flaw" "surrounded_regions" "course_schedule" \
-#                    "course_schedule_II" "redundant_connection" "word_ladder")
+#                    "course_schedule_II" "redundant_connection")
+# hardGraphs=("127")
+# hardGraphsNames=("word_ladder")
+mediumAdvancedGraphs=("1584" "743" "787")
+mediumAdvancedGraphsNames=("min_cost_to_connect_all_points" "network_delay_time" "cheapest_flight_with_k_stops")
+# hardAdvancedGraphs=("332" "778")
+# hardAdvancedGraphsNames=("reconstruct_itinerary" "swiming_in_rising_water")
 # easyDP=("70" "746")
 # easyDPNames=("climbing_stairs" "min_cost_climbing_stairs")
-mediumDP=("198" "213")
-mediumDPNames=("house_robber" "house_robber_II")
-files=("${mediumDP[@]}")
-newNames=("${mediumDPNames[@]}")
+# mediumDP=("198" "213")
+# mediumDPNames=("house_robber" "house_robber_II")
+files=("${mediumAdvancedGraphs[@]}")
+newNames=("${mediumAdvancedGraphsNames[@]}")
 
 if (( ${#files[@]} != ${#newNames[@]} )); then
     echo "Arrays are not of the same length!!!"
@@ -56,7 +62,8 @@ sourceDir="medium"
 # targetDir="trees"
 # targetDir="backtracking"
 # targetDir="graphs"
-targetDir="dynamic_programming1"
+targetDir="advanced_graphs"
+# targetDir="dynamic_programming1"
 
 # Check if the target directory is specified
 if [ -z "$targetDir" ]; then
