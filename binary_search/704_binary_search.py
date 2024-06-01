@@ -9,4 +9,4 @@ class Solution:
             else:
                 end = mid - 1
         
-        return beg
+        return beg if beg < len(nums) and nums[beg] == target else -1
